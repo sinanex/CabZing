@@ -21,9 +21,7 @@ class ProfileScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    child: Image.asset('assets/pngaaa@2x.png')
-                  ),
+    
                   Column(
                     children: [
                       Text("David arnold"),

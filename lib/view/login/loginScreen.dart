@@ -54,7 +54,7 @@ class Loginscreen extends StatelessWidget {
                         foregroundColor: Colors.white,
                         backgroundColor: Color.fromRGBO(14, 117, 244, 1)),
                     onPressed: () {
-                      value.loginUser();
+                      value.loginUser(context);
                     },
                     child: Text("login")),
               ),
