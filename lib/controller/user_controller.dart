@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:vikncodes/model/usermodel.dart';
+import 'package:vikncodes/model/login_model.dart';
 import 'package:vikncodes/services/login/logins_services.dart';
 import 'package:vikncodes/view/profile/profile_screen.dart';
 
@@ -15,7 +15,7 @@ class UserController extends ChangeNotifier {
     try {
       if (usernameController.text.isNotEmpty &&
         passwordController.text.isNotEmpty) {
-      final user = Usermodel(
+      final user = LoginModel(
           password: passwordController.text, username: usernameController.text);
 
      String? message = await loginservices.loginUser(user);
