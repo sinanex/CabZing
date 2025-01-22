@@ -14,13 +14,13 @@ class Loginservices {
     try {
       final response = await dio.post(loginUrl, data: userLoginData);
       if (response.statusCode == 200) {
-        log("login succes ${response.data['data']['refresh']} ${response.data['data']['user_id']}");
         final refreshToken = response.data['data']['refresh'];
         final accessToken = response.data['data']['access'];
+
         final userId = response.data['data']['user_id'].toString();
-        _secureStorage.write(key: 'user_id', value:userId );
-        _secureStorage.write(key: 'refresh', value: refreshToken);
-        _secureStorage.write(key: 'access', value: accessToken);
+        await _secureStorage.write(key: 'user_id', value: userId);
+        await _secureStorage.write(key: 'refresh', value: refreshToken);
+        await _secureStorage.write(key: 'access', value: accessToken);
         return 'success';
       }
     } on DioException catch (e) {

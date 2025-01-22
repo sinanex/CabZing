@@ -1,5 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
+import 'package:vikncodes/controller/user_controller.dart';
 import 'package:vikncodes/view/profile/profile_widgets.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -14,7 +17,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    Provider.of<UserController>(context, listen: false).getProfileData();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,19 +32,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
             padding: const EdgeInsets.all(8.0),
             child: Container(
               height: 100,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-    
-                  Column(
-                    children: [
-                      Text("David arnold"),
-                      Text("muhammedsinanx4@gmail.com"),
-                    ],
-                  ),
-                  Icon(Iconsax.edit)
-                ],
+              child: Consumer<UserController>(
+                builder: (context, value, child) => Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 100,
+                      color: Colors.black,
+                      child: Image.network(
+                        '${value.photo}',
+                        errorBuilder: (context, error, stackTrace) =>
+                            Icon(Icons.error, size: 40), 
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child;
+                          }
+                          return Center(
+                            child: CircularProgressIndicator(
+                             
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Text(value.name ?? 'name'),
+                        Text(value.email ?? 'email'),
+                      ],
+                    ),
+                    Icon(Iconsax.edit)
+                  ],
+                ),
               ),
             ),
           ),
@@ -49,7 +75,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               profileContainer(
                   color: Color.fromRGBO(181, 205, 254, 1),
                   imagePAth: 'assets/stars.png',
-
                   mainTitle: '4.3 ',
                   sub: '2233',
                   text: "Rides"),
@@ -67,15 +92,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 spacing: 10,
                 children: [
                   Spacer(),
-                  Text("Logout",style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red,
-                  ),),
+                  Text(
+                    "Logout",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                    ),
+                  ),
                   Icon(
                     Iconsax.logout,
                     color: Colors.red,
                   ),
-                        Spacer(),
+                  Spacer(),
                 ],
               ),
               height: 60,
@@ -85,11 +113,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           ),
-          profilePagetile(icon: Icons.settings,text: 'Help'),
-          profilePagetile(icon: Iconsax.search_normal,text: 'FAQ',),
-          profilePagetile(icon: Iconsax.user_add,text: 'Invite Friends'),
-          profilePagetile(icon: Iconsax.shield_search,text: 'Terms of Services'),
-          profilePagetile(icon: Iconsax.security_safe,text: 'Praivacy Policy'),
+          profilePagetile(icon: Icons.settings, text: 'Help'),
+          profilePagetile(
+            icon: Iconsax.search_normal,
+            text: 'FAQ',
+          ),
+          profilePagetile(icon: Iconsax.user_add, text: 'Invite Friends'),
+          profilePagetile(
+              icon: Iconsax.shield_search, text: 'Terms of Services'),
+          profilePagetile(icon: Iconsax.security_safe, text: 'Praivacy Policy'),
         ],
       ),
     );
