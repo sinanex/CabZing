@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:vikncodes/model/login_model.dart';
-import 'package:vikncodes/model/user_model.dart';
 import 'package:vikncodes/services/login/logins_services.dart';
 import 'package:vikncodes/services/login/profile_services.dart';
 import 'package:vikncodes/view/profile/profile_screen.dart';
@@ -36,17 +35,14 @@ class UserController extends ChangeNotifier {
     } catch (e) {}
   }
 
+  void getProfileData() async {
+    _services.getProfileData();
+    name = await _secureStorage.read(key: 'name');
+    email = await _secureStorage.read(key: 'email');
+    photo = await _secureStorage.read(key: 'photo');
 
-void getProfileData()async{
-  _services.getProfileData();
-  name = await _secureStorage.read(key: 'name');
-  email = await _secureStorage.read(key: 'email');
-  photo = await _secureStorage.read(key: 'photo');
+    log("name $name");
 
-  log("name $name");
-
-  notifyListeners();
-}
-
+    notifyListeners();
   }
-
+}

@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:vikncodes/model/user_model.dart';
 
 class ProfileServices {
   FlutterSecureStorage _secureStorage = FlutterSecureStorage();
@@ -19,7 +18,6 @@ class ProfileServices {
             await dio.get(baseUrl, options: Options(headers: headers));
         if (response.statusCode == 200) {
           log('success ${response.data['data']['first_name']}');
-
           final name = response.data['data']['first_name'];
           final email = response.data['data']['email'];
           final photo = response.data['customer_data']['photo'];

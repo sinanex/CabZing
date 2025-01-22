@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:vikncodes/services/invoices/invoice_services.dart';
 
-class InvoicesScreen extends StatelessWidget {
+class InvoicesScreen extends StatefulWidget {
   const InvoicesScreen({super.key});
 
+  @override
+  State<InvoicesScreen> createState() => _InvoicesScreenState();
+}
+
+class _InvoicesScreenState extends State<InvoicesScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    InvoiceServices _services = InvoiceServices();
+    _services.salesPage();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

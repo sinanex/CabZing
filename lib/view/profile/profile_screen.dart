@@ -38,21 +38,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      width: 100,
-                      height: 100,
-                      color: Colors.black,
+  
                       child: Image.network(
+                        width: 100,
                         '${value.photo}',
                         errorBuilder: (context, error, stackTrace) =>
-                            Icon(Icons.error, size: 40), 
+                            Icon(Icons.error, size: 40),
                         loadingBuilder: (context, child, loadingProgress) {
                           if (loadingProgress == null) {
                             return child;
                           }
                           return Center(
-                            child: CircularProgressIndicator(
-                             
-                            ),
+                            child: CircularProgressIndicator(),
                           );
                         },
                       ),
