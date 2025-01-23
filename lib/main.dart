@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:vikncodes/controller/bottomBar_controller.dart';
+import 'package:vikncodes/controller/sale_controller.dart';
 import 'package:vikncodes/controller/user_controller.dart';
-import 'package:vikncodes/view/home/invoices.dart';
+import 'package:vikncodes/view/bottom/bottomBar.dart';
+import 'package:vikncodes/view/home/homeScreen.dart';
 import 'package:vikncodes/view/login/loginScreen.dart';
-import 'package:vikncodes/view/profile/profile_screen.dart';
+import 'package:vikncodes/view/splash/splash_screen.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +23,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => UserController()),
+        ChangeNotifierProvider(create: (context) => SaleController()),
+        ChangeNotifierProvider(create: (context) => BottombarController()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false, 
@@ -29,7 +35,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         themeMode: ThemeMode.dark,
-        home: InvoicesScreen()
+        home:SplashScreen()
       ),
     );
   }

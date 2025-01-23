@@ -5,7 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:vikncodes/model/invoice_model.dart';
 
 class InvoiceServices {
-  FlutterSecureStorage _secureStorage = FlutterSecureStorage();
+  final FlutterSecureStorage _secureStorage = FlutterSecureStorage();
   final baseUrl = 'https://www.api.viknbooks.com/api/v10/sales/sale-list-page/';
   Dio dio = Dio();
   final payload = {
@@ -20,7 +20,7 @@ class InvoiceServices {
     "WarehouseID": 1
   };
 
-  Future<List<invoices>?> salesPage() async {
+  Future<List<Data>> salesPage() async {
     final token = await _secureStorage.read(key: 'access');
     var headers = {'Authorization': 'Bearer $token'};
     try {
@@ -30,10 +30,12 @@ class InvoiceServices {
             headers: headers,
           ));
       if (response.statusCode == 200) {
-        log(response.data.toString());
+        List<dynamic> data = response.data['data']; 
+        return data.map((json)=> Data.fromJson(json)).toList();
       }
     }on DioException catch (e) {
       log(e.message.toString());
     }
+    return [];
   }
 }

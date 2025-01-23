@@ -5,11 +5,11 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:vikncodes/model/login_model.dart';
 
 class Loginservices {
-  FlutterSecureStorage _secureStorage = FlutterSecureStorage();
+  final FlutterSecureStorage _secureStorage = FlutterSecureStorage();
   static const loginUrl =
       'https://api.accounts.vikncodes.com/api/v1/users/login';
   Dio dio = Dio();
-  Future<String?> loginUser(LoginModel data) async {
+  Future<String?> loginUserSer(LoginModel data) async {
     final userLoginData = data.toJson();
     try {
       final response = await dio.post(loginUrl, data: userLoginData);
@@ -26,5 +26,6 @@ class Loginservices {
     } on DioException catch (e) {
       log(e.message.toString());
     }
+    return null;
   }
 }

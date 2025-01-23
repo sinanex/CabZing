@@ -5,7 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:vikncodes/model/login_model.dart';
 import 'package:vikncodes/services/login/logins_services.dart';
 import 'package:vikncodes/services/login/profile_services.dart';
-import 'package:vikncodes/view/profile/profile_screen.dart';
+import 'package:vikncodes/view/bottom/bottomBar.dart';
 
 class UserController extends ChangeNotifier {
   TextEditingController usernameController = TextEditingController();
@@ -16,24 +16,39 @@ class UserController extends ChangeNotifier {
   String? name;
   String? email;
   String? photo;
-  void loginUser(BuildContext context) async {
-    try {
-      if (usernameController.text.isNotEmpty &&
-          passwordController.text.isNotEmpty) {
-        final user = LoginModel(
-            password: passwordController.text,
-            username: usernameController.text);
+  bool isLoading = false;
+  void setLoading(bool value) {
+   isLoading  = value;
+    notifyListeners(); 
+  }
 
-        String? message = await loginservices.loginUser(user);
+  Future<void> loginUser(BuildContext context) async {
+    setLoading(true); 
+    try {
+      if (usernameController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+        final user = LoginModel(
+          password: passwordController.text,
+          username: usernameController.text,
+        );
+
+        String? message = await loginservices.loginUserSer(user);
 
         if (message != null) {
-          log("log success");
+          setLoading(false); 
+          log("Login success");
           Navigator.push(
-              context, MaterialPageRoute(builder: (_) => ProfileScreen()));
+            context, 
+            MaterialPageRoute(builder: (_) => Bottombar(index: 0,)),
+          );
         }
+      } else {
+        setLoading(false); 
       }
-    } catch (e) {}
+    } catch (e) {
+      setLoading(false);
+    }
   }
+
 
   void getProfileData() async {
     _services.getProfileData();

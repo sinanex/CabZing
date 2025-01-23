@@ -44,17 +44,24 @@ Container profileContainer({
     return Padding(
           padding: const EdgeInsets.all(12.0),
           child: Container(
-            height: 60,
-            child: Row(
-              spacing: 10,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Icon(icon),
-              
-                Text(text??''),
-                Spacer(),
-                Icon(Icons.arrow_forward_ios)
-              ],
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.black
+          ),
+            height: 70,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                spacing: 10,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Icon(icon),
+                
+                  Text(text??''),
+                  Spacer(),
+                  Icon(Icons.arrow_forward_ios)
+                ],
+              ),
             ),
           ),
         );
